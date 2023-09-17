@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace VNWalks.API.Repositories
+namespace VNWalks.API.Repositories.Interface
 {
     public interface ITokenRepository
     {

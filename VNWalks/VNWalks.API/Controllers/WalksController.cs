@@ -5,6 +5,7 @@ using VNWalks.API.CustomActionFilters;
 using VNWalks.API.Models.Domain;
 using VNWalks.API.Models.DTOs.Walk;
 using VNWalks.API.Repositories;
+using VNWalks.API.Repositories.Interface;
 
 namespace VNWalks.API.Controllers
 {

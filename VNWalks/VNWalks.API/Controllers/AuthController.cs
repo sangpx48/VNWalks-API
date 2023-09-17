@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using VNWalks.API.Models.DTOs.Auth.Login;
 using VNWalks.API.Models.DTOs.Auth.Register;
 using VNWalks.API.Repositories;
+using VNWalks.API.Repositories.Interface;
 
 namespace VNWalks.API.Controllers
 {

@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VNWalks.API.Data;
 using VNWalks.API.Models.Domain;
+using VNWalks.API.Repositories.Interface;
 
-namespace VNWalks.API.Repositories
+namespace VNWalks.API.Repositories.Implement
 {
-    public class SQLWalkRepository : IWalkRepository
+    public class WalkRepository : IWalkRepository
     {
         private readonly VNWalksDbContext dbContext;
 
-        public SQLWalkRepository(VNWalksDbContext dbContext)
+        public WalkRepository(VNWalksDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -22,6 +23,7 @@ namespace VNWalks.API.Repositories
             )
         {
 
+            // get list ra co difficulty va region
             var walks = dbContext.Walks.Include("Difficulty").Include("Region").AsQueryable();
 
             //Filtering
@@ -36,7 +38,7 @@ namespace VNWalks.API.Repositories
             }
 
 
-            //Sorting
+            //Sorting - sort by Name    
             //Kiem tra xem xep theo cot null hay la ko null
             if (string.IsNullOrWhiteSpace(sortBy) == false)
             {
@@ -55,9 +57,6 @@ namespace VNWalks.API.Repositories
 
             //tra lai danh sach 
             return await walks.Skip(skipResults).Take(pageSize).ToListAsync();
-
-
-            //return await dbContext.Walks.Include("Difficulty").Include("Region").ToListAsync();
         }
 
         public async Task<Walk?> GetByIdAsync(Guid id)
