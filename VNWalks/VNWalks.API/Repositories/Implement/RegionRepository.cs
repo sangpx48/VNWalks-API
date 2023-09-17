@@ -3,17 +3,18 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using VNWalks.API.Data;
 using VNWalks.API.Models.Domain;
+using VNWalks.API.Repositories.Interface;
 
-namespace VNWalks.API.Repositories
+namespace VNWalks.API.Repositories.Implement
 {
     /// <summary>
     /// trien khai DbContext de truyen vao CSDL
     /// </summary>
-    public class SQLRegionRepository : IRegionRepositoty
+    public class RegionRepository : IRegionRepositoty
     {
         private readonly VNWalksDbContext dbContext;
 
-        public SQLRegionRepository(VNWalksDbContext dbContext)
+        public RegionRepository(VNWalksDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

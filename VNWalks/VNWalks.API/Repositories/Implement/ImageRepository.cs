@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using VNWalks.API.Data;
 using VNWalks.API.Models.Domain;
+using VNWalks.API.Repositories.Interface;
 
-namespace VNWalks.API.Repositories
+namespace VNWalks.API.Repositories.Implement
 {
-    public class SQLImageRepository : IImageRepository
+    public class ImageRepository : IImageRepository
     {
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly VNWalksDbContext vNWalksDbContext;
 
-        public SQLImageRepository(IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, VNWalksDbContext vNWalksDbContext)
+        public ImageRepository(IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, VNWalksDbContext vNWalksDbContext)
         {
             this.webHostEnvironment = webHostEnvironment;
             this.httpContextAccessor = httpContextAccessor;

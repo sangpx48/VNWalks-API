@@ -8,6 +8,8 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
+using VNWalks.API.Repositories.Interface;
+using VNWalks.API.Repositories.Implement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,7 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1",
     });
 
+    //add authorzation
     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -70,15 +73,15 @@ builder.Services.AddDbContext<VNWalksAuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("VNWalksAuthConnectionString"))
 );
 
-// Dua vao repository va SQlRepository  
-builder.Services.AddScoped<IRegionRepositoty, SQLRegionRepository>();
-builder.Services.AddScoped<IWalkRepository, SQLWalkRepository>();
-builder.Services.AddScoped<ITokenRepository, SQLTokenRepository>();
-builder.Services.AddScoped<IImageRepository, SQLImageRepository>();
+//Add Dependency Injecion
+builder.Services.AddScoped<IRegionRepositoty, RegionRepository>();
+builder.Services.AddScoped<IWalkRepository, WalkRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 
 
 
-//Dua Auto Mapping vao Ung Dung
+//Add Auto Mapping 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 //Them thuoc tinh nhan dang (Identity) vao Program
@@ -88,6 +91,7 @@ builder.Services.AddIdentityCore<IdentityUser>()
     .AddEntityFrameworkStores<VNWalksAuthDbContext>()
     .AddDefaultTokenProviders();
 
+//config hardcode Password
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireNonAlphanumeric = false;
@@ -117,10 +121,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         }
     );
 
-
-
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -138,6 +138,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//add config them Image
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),

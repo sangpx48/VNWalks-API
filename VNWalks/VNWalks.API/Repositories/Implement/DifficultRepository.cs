@@ -1,8 +1,9 @@
 ﻿using VNWalks.API.Models.Domain;
+using VNWalks.API.Repositories.Interface;
 
-namespace VNWalks.API.Repositories
+namespace VNWalks.API.Repositories.Implement
 {
-    public class SQLDifficultRepository : IDifficultyRepository
+    public class DifficultRepository : IDifficultyRepository
     {
         public Task<Difficulty> CreateAsync(Difficulty difficulty)
         {

@@ -4,14 +4,15 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using VNWalks.API.Repositories.Interface;
 
-namespace VNWalks.API.Repositories
+namespace VNWalks.API.Repositories.Implement
 {
-    public class SQLTokenRepository : ITokenRepository
+    public class TokenRepository : ITokenRepository
     {
         private readonly IConfiguration configuration;
 
-        public SQLTokenRepository(IConfiguration configuration)
+        public TokenRepository(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
@@ -34,7 +35,7 @@ namespace VNWalks.API.Repositories
             //Tao thong tin dang nhap moi
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            //Tao Ma
+            //Tao Token
             var token = new JwtSecurityToken(
                 configuration["Jwt:Issuer"],
                 configuration["Jwt:Audience"],

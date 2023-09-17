@@ -1,6 +1,6 @@
 ﻿using VNWalks.API.Models.Domain;
 
-namespace VNWalks.API.Repositories
+namespace VNWalks.API.Repositories.Interface
 {
     public interface IDifficultyRepository
     {
